@@ -30,3 +30,11 @@ $products = [
     $product7,
     $product8
 ];
+
+try {
+    $product1->setDuration_years(6);
+    $product4->setDuration_years(8);
+    $product8->setDuration_years(2);
+} catch (Exception $e) {
+    echo $e;
+}

@@ -3,6 +3,7 @@
 
 require_once './db.php';
 
+
 // var_dump($prodotti);
 ?>
 
@@ -64,7 +65,8 @@ require_once './db.php';
                                     echo 'Dimensione: ' . $product->dimension;
                                     break;
                                 case 'Toy':
-                                    echo 'Tipo: ' . $product->type;
+                                    echo 'Tipo: ' . $product->type . '<br>' . 'Durata prevista: ' . $product->getDurability();
+
                                     break;
                             }
                             ?>
