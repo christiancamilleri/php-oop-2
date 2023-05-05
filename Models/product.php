@@ -15,13 +15,4 @@ class product {
         $this->image_url = $image_url;
     }
 
-    public function getClass($product) {
-        if(get_class($product) == 'cuccia') {
-            return 'Dimensione:' . $product->dimensione;
-
-        } else if (get_class($product) == 'gioco') {
-            return 'Tipo:' . $product->type; 
-        } else if (get_class())
-    }
-
 }
