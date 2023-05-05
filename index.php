@@ -1,8 +1,5 @@
 <?php
-require_once './Models/product.php';
-require_once './Models/alimento.php';
-require_once './Models/gioco.php';
-require_once './Models/cuccia.php';
+
 
 require_once './db.php';
 
@@ -22,50 +19,59 @@ require_once './db.php';
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- css -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+
+        .price span {
+            color: red;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>PET SHOP</h1>
+    <h1 class="my-5">PET SHOP</h1>
     <div class="container d-flex gap-3 flex-wrap">
 
 
 
         <?php
-        foreach ($prodotti as $prodotto) {
+        foreach ($products as $product) {
 
 
         ?>
 
             <div class="card" style="width: 18rem;">
-                <img src="<?php echo $prodotto->image_url ?>" class="card-img-top" alt="...">
+                <img src="<?php echo $product->image_url ?>" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title"><?php echo $prodotto->name ?></h5>
+                    <h5 class="card-title"><?php echo $product->name ?>
+                        <small><i class="fa-solid <?php echo $product->category->icon ?>"></i></small>
+                    </h5>
                     <ul>
-                        <li class="card-text">
-                            Prezzo: <?php echo $prodotto->price ?>
+
+                        <li>
+                            <?php
+
+                            switch (get_class($product)) {
+                                case 'Food':
+                                    echo 'Data di scadenza: ' . $product->expiraton_date . '<br>' . 'Quantità: ' . $product->amount;
+                                    break;
+                                case 'Sit':
+                                    echo 'Dimensione: ' . $product->dimension;
+                                    break;
+                                case 'Toy':
+                                    echo 'Tipo: ' . $product->type;
+                                    break;
+                            }
+                            ?>
                         </li>
-                        <li class="card-text">
-                            Categoria: <?php echo $prodotto->category ?>
+                        <li class="card-text price">
+                            Prezzo: <span><?php echo $product->price ?></span> €
                         </li>
-                        <?php if (get_class($prodotto) == 'cuccia') { ?>
-                            <li class="card-text">
-                                Dimensione: <?php echo $prodotto->dimensione ?>
-                            </li>
-                        <?php } else if (get_class($prodotto) == 'alimento') { ?>
-                            <li class="card-text">
-                                Data di scadenza: <?php echo $prodotto->data_scadenza ?>
-                            </li>
-                            <li class="card-text">
-                                Quantità: <?php echo $prodotto->quantità ?>
-                            </li>
-                        <?php } else if (get_class($prodotto) == 'gioco') { ?>
-                            <li class="card-text">
-                                Tipo: <?php echo $prodotto->type ?>
-                            </li>
-                        <?php } ?>
                     </ul>
                     <a href="#" class="btn btn-primary">Acquista ora</a>
                 </div>
